@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BlorgReader</string>
+    <string name="no_contents_available">No blogs loaded.</string>
 </resources>
