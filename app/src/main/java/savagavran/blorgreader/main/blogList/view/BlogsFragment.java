@@ -3,7 +3,10 @@ package savagavran.blorgreader.main.blogList.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +47,11 @@ public class BlogsFragment extends Fragment  implements BlogsContract.BlogsScree
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_blogs, container, false);
+
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        Toolbar mActionBarToolbar = view.findViewById(R.id.toolbar);
+        activity.setSupportActionBar(mActionBarToolbar);
+        activity.getSupportActionBar().setTitle(getString(R.string.blog_list));
 
         App app = App.getAppContext(getActivity());
         DaggerBlogsComponent
