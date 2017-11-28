@@ -3,4 +3,7 @@
     <dimen name="blogs_horizontal_margin">4dp</dimen>
     <dimen name="blogs_vertical_margin">4dp</dimen>
 
+    <dimen name="login_horizontal_margin">16dp</dimen>
+    <dimen name="login_vertical_margin">16dp</dimen>
+
 </resources>

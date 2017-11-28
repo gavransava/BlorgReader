@@ -6,10 +6,21 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="colorControlNormal">@color/grey</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
 
     <style name="Toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
-        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
     </style>
 
+    <style name="EditText" parent="@android:style/Widget.EditText">
+        <item name="android:layout_marginTop">@dimen/login_vertical_margin</item>
+        <item name="android:layout_marginStart">@dimen/login_horizontal_margin</item>
+        <item name="android:layout_marginLeft">@dimen/login_horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/login_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/login_horizontal_margin</item>
+    </style>
 </resources>

@@ -2,4 +2,8 @@
     <string name="app_name">BlorgReader</string>
     <string name="no_contents_available">No blogs loaded.</string>
     <string name="blog_list">Blog List</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="invalid_credentials">Invalid Credentials</string>
 </resources>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -47,11 +48,9 @@ public class BlogsFragment extends Fragment  implements BlogsContract.BlogsScree
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_blogs, container, false);
-
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
         Toolbar mActionBarToolbar = view.findViewById(R.id.toolbar);
-        activity.setSupportActionBar(mActionBarToolbar);
-        activity.getSupportActionBar().setTitle(getString(R.string.blog_list));
+
+        setupToolbar(mActionBarToolbar);
 
         App app = App.getAppContext(getActivity());
         DaggerBlogsComponent
@@ -62,6 +61,15 @@ public class BlogsFragment extends Fragment  implements BlogsContract.BlogsScree
                 .inject(this);
 
         return view;
+    }
+
+    private void setupToolbar(Toolbar mActionBarToolbar) {
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.setSupportActionBar(mActionBarToolbar);
+        ActionBar actionBar = activity.getSupportActionBar();
+        if(actionBar != null) {
+            actionBar.setTitle(getString(R.string.blog_list));
+        }
     }
 
     @Override
