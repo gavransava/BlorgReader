@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +17,18 @@ import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
+import javax.inject.Inject;
+
+import savagavran.blorgreader.App;
 import savagavran.blorgreader.R;
+import savagavran.blorgreader.login.LoginContract;
+import savagavran.blorgreader.login.di.DaggerLoginComponent;
 
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements LoginContract.LoginScreen {
+
+    @Inject
+    LoginContract.LoginUserActions mLoginPresenter;
 
     private Button mLoginButton;
     private AppCompatEditText mEmailText;
@@ -39,6 +46,16 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+
+        App app = App.getAppContext(getActivity());
+
+        DaggerLoginComponent
+                .builder()
+                .appComponent(app.getComponent())
+                .loginModule(app.getLoginModule(this))
+                .build()
+                .inject(this);
+
         Toolbar mActionBarToolbar = view.findViewById(R.id.toolbar);
         mLoginButton = view.findViewById(R.id.login_button);
         mEmailText = view.findViewById(R.id.email_text);
@@ -46,16 +63,17 @@ public class LoginFragment extends Fragment {
 
         setupLoginButton();
         setupToolbar(mActionBarToolbar);
-        return view ;
+        return view;
     }
 
     private void setupLoginButton() {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isValidEmail(mEmailText.getText().toString())
-                        && isValidPassword(mPasswordText.getText().toString())){
-                    //api call
+                String email = mEmailText.getText().toString();
+                String password = mPasswordText.getText().toString();
+                if (isValidEmail(email) && isValidPassword(password)) {
+                    mLoginPresenter.onLoginClicked(email, password);
                 } else {
                     Toast.makeText(getContext(),
                             getString(R.string.invalid_credentials),
@@ -82,5 +100,26 @@ public class LoginFragment extends Fragment {
 
     private boolean isValidPassword(String password) {
         return password.length() >= 6;
+    }
+
+    @Override
+    public void openBlogsScreen() {
+        Toast.makeText(getContext(),
+                "blogs screen",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showNoInternetConnection() {
+        Toast.makeText(getContext(),
+                getString(R.string.no_internet_connection),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLoginFailedError(String message) {
+        Toast.makeText(getContext(),
+                message,
+                Toast.LENGTH_SHORT).show();
     }
 }

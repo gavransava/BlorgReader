@@ -7,6 +7,8 @@ import android.util.Log;
 import savagavran.blorgreader.di.AppComponent;
 import savagavran.blorgreader.di.AppModule;
 import savagavran.blorgreader.di.DaggerAppComponent;
+import savagavran.blorgreader.login.LoginContract;
+import savagavran.blorgreader.login.di.LoginModule;
 import savagavran.blorgreader.main.blogList.BlogsContract;
 import savagavran.blorgreader.main.blogList.di.BlogsModule;
 
@@ -46,7 +48,7 @@ public class App extends Application {
         return new BlogsModule(screen);
     }
 
-//    public LoginModule getLoginModule(LoginContract.LoginScreen loginScreen) {
-//        return new LoginModule(loginScreen);
-//    }
+    public LoginModule getLoginModule(LoginContract.LoginScreen loginScreen) {
+        return new LoginModule(loginScreen);
+    }
 }

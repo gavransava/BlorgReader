@@ -1,4 +1,46 @@
 package savagavran.blorgreader.login.presenter;
 
-public class LoginPresenter {
+import android.support.annotation.NonNull;
+
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import savagavran.blorgreader.login.LoginContract;
+import savagavran.blorgreader.shared.auth.AuthManager;
+import savagavran.blorgreader.shared.retrofit.Credentials;
+
+public class LoginPresenter implements LoginContract.LoginUserActions {
+
+    private WeakReference<LoginContract.LoginScreen> mLoginScreen;
+    private AuthManager mAuthManager;
+
+    public LoginPresenter(@NonNull LoginContract.LoginScreen loginScreen,
+                          @NonNull AuthManager authManager) {
+        this.mLoginScreen = new WeakReference<>(loginScreen);
+        this.mAuthManager = authManager;
+    }
+
+    @Override
+    public void onLoginClicked(String email, String password) {
+        Credentials credentials = new Credentials(email,password);
+        LoginContract.LoginScreen loginScreen = mLoginScreen.get();
+        if (loginScreen != null) {
+            mAuthManager.login(credentials)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(token -> {onUserAuthenticated(loginScreen);
+                    }, throwable -> {
+                        if(throwable instanceof IOException){
+                            if(throwable.getMessage().equals("No connectivity exception")){
+                                loginScreen.showNoInternetConnection();
+                            }
+                        }
+                        loginScreen.showLoginFailedError(throwable.getMessage());
+                    });
+        }
+    }
+
+    private void onUserAuthenticated(LoginContract.LoginScreen loginScreen) {
+        loginScreen.openBlogsScreen();
+    }
 }

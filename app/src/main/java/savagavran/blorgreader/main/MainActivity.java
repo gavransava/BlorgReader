@@ -2,12 +2,12 @@ package savagavran.blorgreader.main;
 
 import android.support.v4.app.Fragment;
 import savagavran.blorgreader.SingleFragmentActivity;
-import savagavran.blorgreader.main.blogList.view.BlogsFragment;
+import savagavran.blorgreader.login.view.LoginFragment;
 
 public class MainActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
-        return BlogsFragment.newInstance();
+        return LoginFragment.newInstance();
     }
 }

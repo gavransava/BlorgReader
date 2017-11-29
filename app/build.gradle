@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -33,6 +37,8 @@ dependencies {
     // Retrofit
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.loggingInterceptorVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$rootProject.rxAdapterVersion"
 
     // RxJava2
     compile "io.reactivex.rxjava2:rxjava:$rootProject.rxJava2Version"

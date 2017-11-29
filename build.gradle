@@ -40,5 +40,7 @@ ext {
     retrofitVersion = '2.3.0'
     rxJava2Version = '2.1.7'
     rxAndroidVersion = '2.0.1'
+    loggingInterceptorVersion = '3.9.0'
+    rxAdapterVersion = '2.3.0'
 
 }
