@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import savagavran.blorgreader.login.LoginContract;
 import savagavran.blorgreader.shared.auth.AuthManager;
 import savagavran.blorgreader.shared.retrofit.Credentials;
@@ -27,6 +28,7 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
         LoginContract.LoginScreen loginScreen = mLoginScreen.get();
         if (loginScreen != null) {
             mAuthManager.login(credentials)
+                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(token -> {onUserAuthenticated(loginScreen);
                     }, throwable -> {

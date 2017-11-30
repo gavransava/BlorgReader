@@ -6,8 +6,6 @@ public interface BlogsContract {
 
     interface BlogsScreen {
 
-        void onAuthenticationConfirmed();
-
         void onAuthenticationRequired();
 
         void showBlogs();
@@ -19,12 +17,8 @@ public interface BlogsContract {
 
         void loadBlogs();
 
+        void onScreenLaunched(Context context);
+
         void onBlogsDetailsClicked(int position);
-
-        void onResume(Context context);
-
-        void onPause(Context context);
-
-        void onDestroy();
     }
 }

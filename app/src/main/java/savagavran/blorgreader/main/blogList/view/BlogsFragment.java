@@ -1,9 +1,9 @@
 package savagavran.blorgreader.main.blogList.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import savagavran.blorgreader.App;
 import savagavran.blorgreader.R;
+import savagavran.blorgreader.login.view.LoginActivity;
 import savagavran.blorgreader.main.blogList.BlogsContract;
 import savagavran.blorgreader.main.blogList.di.DaggerBlogsComponent;
 
@@ -60,6 +61,8 @@ public class BlogsFragment extends Fragment  implements BlogsContract.BlogsScree
                 .build()
                 .inject(this);
 
+        mBlogsPresenter.onScreenLaunched(this.getContext());
+
         return view;
     }
 
@@ -73,13 +76,9 @@ public class BlogsFragment extends Fragment  implements BlogsContract.BlogsScree
     }
 
     @Override
-    public void onAuthenticationConfirmed() {
-
-    }
-
-    @Override
     public void onAuthenticationRequired() {
-
+        startActivity(new Intent(this.getActivity(), LoginActivity.class));
+        getActivity().finish();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package savagavran.blorgreader.login.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
@@ -23,6 +23,7 @@ import savagavran.blorgreader.App;
 import savagavran.blorgreader.R;
 import savagavran.blorgreader.login.LoginContract;
 import savagavran.blorgreader.login.di.DaggerLoginComponent;
+import savagavran.blorgreader.main.MainActivity;
 
 
 public class LoginFragment extends Fragment implements LoginContract.LoginScreen {
@@ -104,9 +105,10 @@ public class LoginFragment extends Fragment implements LoginContract.LoginScreen
 
     @Override
     public void openBlogsScreen() {
-        Toast.makeText(getContext(),
-                "blogs screen",
-                Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        // remove loginActivity from backStack
+        getActivity().finish();
     }
 
     @Override
