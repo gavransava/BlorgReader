@@ -13,6 +13,8 @@ public interface BlogsContract {
         void showBlogs();
 
         void openBlogDetails();
+
+        void showLoadingError(String message);
     }
 
     interface BlogsUserActions {

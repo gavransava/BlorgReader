@@ -15,4 +15,21 @@ public class BlogItem {
 
     @SerializedName("description")
     private String mDescription;
+
+
+    public Long getId() {
+        return mId;
+    }
+
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public String getImageUrl() {
+        return mImageUrl;
+    }
+
+    public String getDescription() {
+        return mDescription;
+    }
 }

@@ -49,4 +49,7 @@ dependencies {
     compile "com.google.dagger:dagger-android-support:$rootProject.dagger2Version"
     annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.dagger2Version"
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
+
+    // Picasso
+    compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
 }

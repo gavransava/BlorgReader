@@ -1,14 +1,15 @@
 package savagavran.blorgreader.main.blogList.presenter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import savagavran.blorgreader.R;
 import savagavran.blorgreader.main.blogList.BlogsContract;
+import savagavran.blorgreader.shared.RecyclerAdapterModel;
 import savagavran.blorgreader.shared.ServiceApi;
 import savagavran.blorgreader.shared.auth.AuthManager;
 import savagavran.blorgreader.utils.BlogItem;
@@ -16,14 +17,16 @@ import savagavran.blorgreader.utils.BlogItem;
 public class BlogsPresenter implements BlogsContract.BlogsUserActions {
 
     private WeakReference<BlogsContract.BlogsScreen> mBlogsScreen;
+    private RecyclerAdapterModel<BlogItem> mBlogItemAdapterModel;
     private AuthManager mAuthManager;
     private ServiceApi mServiceApi;
-    private List<BlogItem> testBlogs;
 
-
-    public BlogsPresenter(BlogsContract.BlogsScreen blogsScreen, AuthManager authManager,
-                          ServiceApi serviceApi) {
+    public BlogsPresenter(@NonNull BlogsContract.BlogsScreen blogsScreen,
+                          @NonNull RecyclerAdapterModel<BlogItem> recyclerAdapterModel,
+                          @NonNull AuthManager authManager,
+                          @NonNull ServiceApi serviceApi) {
         mBlogsScreen = new WeakReference<>(blogsScreen);
+        mBlogItemAdapterModel = recyclerAdapterModel;
         mAuthManager = authManager;
         mServiceApi = serviceApi;
     }
@@ -35,9 +38,12 @@ public class BlogsPresenter implements BlogsContract.BlogsUserActions {
             mServiceApi.getAllBlogs()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(blogs -> {
-                testBlogs = blogs;
+                mBlogItemAdapterModel.setItems(blogs);
                 blogsScreen.showBlogs();
-            });
+            }, throwable -> {
+                throwable.printStackTrace();
+                blogsScreen.showLoadingError(throwable.getMessage());}
+            );
         }
     }
 
@@ -57,6 +63,6 @@ public class BlogsPresenter implements BlogsContract.BlogsUserActions {
 
     @Override
     public void onBlogsDetailsClicked(int position) {
-
+        mBlogItemAdapterModel.getItem(position).getId();
     }
 }
