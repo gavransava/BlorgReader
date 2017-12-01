@@ -5,6 +5,8 @@ import android.content.Context;
 import dagger.Component;
 import savagavran.blorgreader.App;
 import savagavran.blorgreader.shared.DataModule;
+import savagavran.blorgreader.shared.Repository;
+import savagavran.blorgreader.shared.ServiceApi;
 import savagavran.blorgreader.shared.auth.AuthManager;
 import savagavran.blorgreader.shared.auth.ConnectivityInterceptor;
 
@@ -16,7 +18,11 @@ public interface AppComponent {
 
     AuthManager getAuthManager();
 
+    ServiceApi getServiceApi();
+
     ConnectivityInterceptor getConnectivityInterceptor();
+
+    Repository provideBlogsRepository();
 
     void inject(App app);
 

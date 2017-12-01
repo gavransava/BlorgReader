@@ -4,6 +4,7 @@ import dagger.Module;
 import dagger.Provides;
 import savagavran.blorgreader.main.blogList.BlogsContract;
 import savagavran.blorgreader.main.blogList.presenter.BlogsPresenter;
+import savagavran.blorgreader.shared.ServiceApi;
 import savagavran.blorgreader.shared.auth.AuthManager;
 
 @BlogsScope
@@ -21,8 +22,9 @@ public class BlogsModule {
         return mBlogsScreen;
     }
     @Provides
-    public BlogsContract.BlogsUserActions provideBlogsUserActions(AuthManager mAuthManager) {
-        return new BlogsPresenter(mBlogsScreen, mAuthManager);
+    public BlogsContract.BlogsUserActions provideBlogsUserActions(AuthManager mAuthManager,
+                                                                  ServiceApi mServiceApi) {
+        return new BlogsPresenter(mBlogsScreen, mAuthManager, mServiceApi);
     }
 
 }

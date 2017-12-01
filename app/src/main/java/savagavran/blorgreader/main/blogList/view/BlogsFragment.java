@@ -76,6 +76,11 @@ public class BlogsFragment extends Fragment  implements BlogsContract.BlogsScree
     }
 
     @Override
+    public void onAuthenticationConfirmed() {
+        mBlogsPresenter.loadBlogs();
+    }
+
+    @Override
     public void onAuthenticationRequired() {
         startActivity(new Intent(this.getActivity(), LoginActivity.class));
         getActivity().finish();

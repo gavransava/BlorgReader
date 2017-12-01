@@ -68,18 +68,15 @@ public class LoginFragment extends Fragment implements LoginContract.LoginScreen
     }
 
     private void setupLoginButton() {
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email = mEmailText.getText().toString();
-                String password = mPasswordText.getText().toString();
-                if (isValidEmail(email) && isValidPassword(password)) {
-                    mLoginPresenter.onLoginClicked(email, password);
-                } else {
-                    Toast.makeText(getContext(),
-                            getString(R.string.invalid_credentials),
-                            Toast.LENGTH_SHORT).show();
-                }
+        mLoginButton.setOnClickListener(view -> {
+            String email = mEmailText.getText().toString();
+            String password = mPasswordText.getText().toString();
+            if (isValidEmail(email) && isValidPassword(password)) {
+                mLoginPresenter.onLoginClicked(email, password);
+            } else {
+                Toast.makeText(getContext(),
+                        getString(R.string.invalid_credentials),
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }

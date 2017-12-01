@@ -6,6 +6,8 @@ public interface BlogsContract {
 
     interface BlogsScreen {
 
+        void onAuthenticationConfirmed();
+
         void onAuthenticationRequired();
 
         void showBlogs();

@@ -18,8 +18,8 @@ import savagavran.blorgreader.utils.Token;
 
 public class AuthManagerImpl implements AuthManager {
 
-    private static final String TOKEN = "token";
-    private static final String PREFERENCE_NAME = "savagavran.blogreader";
+    public static final String TOKEN = "token";
+    public static final String PREFERENCE_NAME = "savagavran.blogreader";
 
     @NonNull
     private AuthService mAuthClient;
