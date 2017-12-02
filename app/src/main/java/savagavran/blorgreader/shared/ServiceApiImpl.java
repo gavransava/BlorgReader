@@ -12,37 +12,35 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import savagavran.blorgreader.shared.auth.AuthManager;
 import savagavran.blorgreader.shared.auth.ConnectivityInterceptor;
 import savagavran.blorgreader.shared.retrofit.ApiServiceEndpoints;
 import savagavran.blorgreader.shared.retrofit.AuthConstants;
 import savagavran.blorgreader.utils.Blog;
 import savagavran.blorgreader.utils.BlogItem;
 
-import static savagavran.blorgreader.shared.auth.AuthManagerImpl.PREFERENCE_NAME;
-import static savagavran.blorgreader.shared.auth.AuthManagerImpl.TOKEN;
-
 public class ServiceApiImpl implements ServiceApi {
 
-    private final String mToken;
     @NonNull
     private ApiServiceEndpoints mApiServiceEndpoints;
+    private AuthManager mAuthManager;
 
     public ServiceApiImpl(@NonNull Context context,
+                          @NonNull AuthManager authManager,
                           @NonNull ConnectivityInterceptor connInterceptor) {
         mApiServiceEndpoints = createApiServiceEndpoints(connInterceptor);
-        mToken = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
-                .getString(TOKEN, "");
+        mAuthManager = authManager;
     }
 
     @Override
     public Observable<List<BlogItem>> getAllBlogs() {
-        return mApiServiceEndpoints.getAllBlogs(mToken)
+        return mApiServiceEndpoints.getAllBlogs(mAuthManager.getToken())
                 .subscribeOn(Schedulers.io());
     }
 
     @Override
     public Observable<Blog> getBlog(String id) {
-        return mApiServiceEndpoints.getBlog(mToken, id)
+        return mApiServiceEndpoints.getBlog(mAuthManager.getToken(), id)
                 .subscribeOn(Schedulers.io());
     }
 

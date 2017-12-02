@@ -7,6 +7,7 @@ import savagavran.blorgreader.utils.Token;
 public interface AuthManager {
 
     Observable<Token> login(Credentials credentials);
-
     Observable<Boolean> authentication();
+
+    String getToken();
 }

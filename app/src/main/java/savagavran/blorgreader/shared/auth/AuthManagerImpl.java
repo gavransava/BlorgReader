@@ -23,6 +23,7 @@ public class AuthManagerImpl implements AuthManager {
 
     @NonNull
     private AuthService mAuthClient;
+
     private String mToken;
     private Context mContext;
 
@@ -72,5 +73,10 @@ public class AuthManagerImpl implements AuthManager {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(AuthService.class);
+    }
+
+    @Override
+    public String getToken() {
+        return mToken;
     }
 }

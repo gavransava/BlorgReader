@@ -31,11 +31,18 @@ public class DataModule {
     @AppScope
     @Provides
     public ServiceApi provideServiceApi(Context context,
-                                          ConnectivityInterceptor mConnInterceptor) {
+                                        AuthManager authManager,
+                                        ConnectivityInterceptor mConnInterceptor) {
         if (mServiceApi == null) {
-            mServiceApi = new ServiceApiImpl(context, mConnInterceptor);
+            mServiceApi = new ServiceApiImpl(context, authManager, mConnInterceptor);
         }
         return mServiceApi;
+    }
+
+    @AppScope
+    @Provides
+    public Repository provideBlogsRepository(ServiceApi serviceApi) {
+        return new BlogsRepositoryImpl(serviceApi);
     }
 
     @AppScope
@@ -47,9 +54,5 @@ public class DataModule {
         return mConnInterceptor;
     }
 
-    @AppScope
-    @Provides
-    public Repository provideBlogsRepository(ServiceApi serviceApi) {
-        return new BlogsRepositoryImpl(serviceApi);
-    }
+
 }
