@@ -2,6 +2,7 @@ package savagavran.blorgreader.main.blogList;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class BlogItemAdapter extends RecyclerView.Adapter<BlogItemAdapter.BlogIt
         BlogItem blogItem = mItems.get(position);
         holder.title.setText(blogItem.getTitle());
         Picasso.with(holder.image.getContext()).load(blogItem.getImageUrl()).into(holder.image);
-        holder.description.setText(blogItem.getDescription());
+        holder.description.setText(Html.fromHtml(blogItem.getDescription()).toString().trim());
     }
 
     @Override

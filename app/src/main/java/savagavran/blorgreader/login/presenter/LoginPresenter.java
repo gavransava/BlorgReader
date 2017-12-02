@@ -2,7 +2,6 @@ package savagavran.blorgreader.login.presenter;
 
 import android.support.annotation.NonNull;
 
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -24,19 +23,15 @@ public class LoginPresenter implements LoginContract.LoginUserActions {
 
     @Override
     public void onLoginClicked(String email, String password) {
-        Credentials credentials = new Credentials(email,password);
+        Credentials credentials = new Credentials(email, password);
         LoginContract.LoginScreen loginScreen = mLoginScreen.get();
         if (loginScreen != null) {
             mAuthManager.login(credentials)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(token -> {onUserAuthenticated(loginScreen);
+                    .subscribe(token -> {
+                        onUserAuthenticated(loginScreen);
                     }, throwable -> {
-                        if(throwable instanceof IOException){
-                            if(throwable.getMessage().equals("No connectivity exception")){
-                                loginScreen.showNoInternetConnection();
-                            }
-                        }
                         loginScreen.showLoginFailedError(throwable.getMessage());
                     });
         }

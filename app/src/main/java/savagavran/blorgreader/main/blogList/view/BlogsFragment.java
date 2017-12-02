@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -73,15 +74,25 @@ public class BlogsFragment extends Fragment implements BlogsContract.BlogsScreen
                 .build()
                 .inject(this);
 
-        mRecyclerView.setAdapter((BlogItemAdapter) mRecyclerViewAdapter);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerViewAdapter.setItemListener((position ->
-                mBlogsPresenter.onBlogsDetailsClicked(position)));
-
+        setupRecyclerView();
         mBlogsPresenter.onScreenLaunched(this.getContext());
 
         return view;
+    }
+
+    private void setupRecyclerView() {
+        mRecyclerView.setAdapter((BlogItemAdapter) mRecyclerViewAdapter);
+        mRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerViewAdapter.setItemListener((position ->
+                mBlogsPresenter.onBlogsDetailsClicked(position)));
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                mRecyclerView.getContext(),
+                layoutManager.getOrientation());
+
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
     }
 
     private void setupToolbar(Toolbar mActionBarToolbar) {

@@ -28,6 +28,9 @@ import savagavran.blorgreader.main.MainActivity;
 
 public class LoginFragment extends Fragment implements LoginContract.LoginScreen {
 
+    private static final String NO_INTERNET_EXCEPTION = "No connectivity exception";
+    private static final String UNAUTHORIZED_EXCEPTION = "HTTP 401 Unauthorized";
+
     @Inject
     LoginContract.LoginUserActions mLoginPresenter;
 
@@ -109,14 +112,20 @@ public class LoginFragment extends Fragment implements LoginContract.LoginScreen
     }
 
     @Override
-    public void showNoInternetConnection() {
-        Toast.makeText(getContext(),
-                getString(R.string.no_internet_connection),
-                Toast.LENGTH_SHORT).show();
+    public void showLoginFailedError(String message) {
+        switch (message) {
+            case NO_INTERNET_EXCEPTION:
+                makeToast(getString(R.string.no_internet_connection));
+                break;
+            case UNAUTHORIZED_EXCEPTION:
+                makeToast(getString(R.string.invalid_credentials));
+                break;
+            default:
+                makeToast(message);
+        }
     }
 
-    @Override
-    public void showLoginFailedError(String message) {
+    private void makeToast(String message) {
         Toast.makeText(getContext(),
                 message,
                 Toast.LENGTH_SHORT).show();

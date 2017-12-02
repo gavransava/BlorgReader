@@ -7,4 +7,5 @@
 
     <color name="grey">@android:color/darker_gray</color>
     <color name="white">@android:color/white</color>
+    <color name="black">@android:color/black</color>
 </resources>

@@ -8,7 +8,6 @@ public interface LoginContract {
 
     interface LoginScreen {
         void openBlogsScreen();
-        void showNoInternetConnection();
         void showLoginFailedError(String message);
     }
 }
