@@ -9,6 +9,7 @@ import savagavran.blorgreader.shared.Repository;
 import savagavran.blorgreader.shared.ServiceApi;
 import savagavran.blorgreader.shared.auth.AuthManager;
 import savagavran.blorgreader.shared.auth.ConnectivityInterceptor;
+import savagavran.blorgreader.utils.BlogItem;
 
 @AppScope
 @Component(modules = {AppModule.class, DataModule.class})
@@ -22,7 +23,7 @@ public interface AppComponent {
 
     ConnectivityInterceptor getConnectivityInterceptor();
 
-    Repository provideBlogsRepository();
+    Repository<BlogItem> provideBlogsRepository();
 
     void inject(App app);
 

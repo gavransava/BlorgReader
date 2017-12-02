@@ -7,7 +7,7 @@ import savagavran.blorgreader.main.blogList.BlogItemAdapter;
 import savagavran.blorgreader.main.blogList.BlogsContract;
 import savagavran.blorgreader.main.blogList.presenter.BlogsPresenter;
 import savagavran.blorgreader.shared.RecyclerAdapterModel;
-import savagavran.blorgreader.shared.ServiceApi;
+import savagavran.blorgreader.shared.Repository;
 import savagavran.blorgreader.shared.auth.AuthManager;
 import savagavran.blorgreader.utils.BlogItem;
 
@@ -42,8 +42,12 @@ public class BlogsModule {
     public BlogsContract.BlogsUserActions provideBlogsUserActions(
             AuthManager mAuthManager,
             RecyclerAdapterModel<BlogItem> recyclerAdapterModel,
-            ServiceApi mServiceApi) {
-        return new BlogsPresenter(mBlogsScreen, recyclerAdapterModel, mAuthManager, mServiceApi);
+            Repository<BlogItem> blogItemRepository) {
+        return new BlogsPresenter(
+                mBlogsScreen,
+                recyclerAdapterModel,
+                mAuthManager,
+                blogItemRepository);
     }
 
 }

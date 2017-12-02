@@ -7,6 +7,6 @@ import io.reactivex.Observable;
 
 public interface Repository<T> {
 
-    Observable<List<T>> getAll();
+    Observable<List<T>> getAllBlogs();
 
 }

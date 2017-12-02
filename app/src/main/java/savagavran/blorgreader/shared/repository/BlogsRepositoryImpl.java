@@ -9,7 +9,7 @@ import savagavran.blorgreader.shared.Repository;
 import savagavran.blorgreader.shared.ServiceApi;
 import savagavran.blorgreader.utils.BlogItem;
 
-public class BlogsRepositoryImpl implements Repository {
+public class BlogsRepositoryImpl implements Repository<BlogItem> {
 
     private ServiceApi mServiceApi;
 
@@ -18,8 +18,7 @@ public class BlogsRepositoryImpl implements Repository {
     }
 
     @Override
-    public Observable<List<BlogItem>> getAll() {
+    public Observable<List<BlogItem>> getAllBlogs() {
         return mServiceApi.getAllBlogs();
-
     }
 }

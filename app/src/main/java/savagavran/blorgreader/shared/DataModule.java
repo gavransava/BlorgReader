@@ -9,6 +9,7 @@ import savagavran.blorgreader.shared.auth.AuthManager;
 import savagavran.blorgreader.shared.auth.AuthManagerImpl;
 import savagavran.blorgreader.shared.auth.ConnectivityInterceptor;
 import savagavran.blorgreader.shared.repository.BlogsRepositoryImpl;
+import savagavran.blorgreader.utils.BlogItem;
 
 @AppScope
 @Module
@@ -41,7 +42,7 @@ public class DataModule {
 
     @AppScope
     @Provides
-    public Repository provideBlogsRepository(ServiceApi serviceApi) {
+    public Repository<BlogItem> provideBlogsRepository(ServiceApi serviceApi) {
         return new BlogsRepositoryImpl(serviceApi);
     }
 
