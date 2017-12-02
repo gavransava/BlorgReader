@@ -12,7 +12,7 @@ public interface BlogsContract {
 
         void showBlogs();
 
-        void openBlogDetails();
+        void openBlogDetails(String htmlContent);
 
         void showLoadingError(String message);
     }

@@ -23,6 +23,8 @@ import javax.inject.Inject;
 import savagavran.blorgreader.App;
 import savagavran.blorgreader.R;
 import savagavran.blorgreader.RecyclerAdapterView;
+import savagavran.blorgreader.blogDetails.BlogActivity;
+import savagavran.blorgreader.blogDetails.view.BlogFragment;
 import savagavran.blorgreader.login.view.LoginActivity;
 import savagavran.blorgreader.main.blogList.BlogItemAdapter;
 import savagavran.blorgreader.main.blogList.BlogsContract;
@@ -75,8 +77,8 @@ public class BlogsFragment extends Fragment implements BlogsContract.BlogsScreen
         View view = inflater.inflate(R.layout.fragment_blogs, container, false);
         mSwipeRefreshLayout = view.findViewById(R.id.refresh_layout);
         mRecyclerView = view.findViewById(R.id.blogs_list);
-        Toolbar mActionBarToolbar = view.findViewById(R.id.toolbar);
-        setupToolbar(mActionBarToolbar);
+        Toolbar actionBarToolbar = view.findViewById(R.id.toolbar);
+        setupToolbar(actionBarToolbar);
         setupRefresh();
 
         App app = App.getAppContext(getActivity());
@@ -163,8 +165,10 @@ public class BlogsFragment extends Fragment implements BlogsContract.BlogsScreen
 
 
     @Override
-    public void openBlogDetails() {
-
+    public void openBlogDetails(String htmlContent) {
+        Intent intent = new Intent(getContext(), BlogActivity.class);
+        intent.putExtra(BlogFragment.HTML_CONTENT, htmlContent);
+        startActivity(intent);
     }
 
 }

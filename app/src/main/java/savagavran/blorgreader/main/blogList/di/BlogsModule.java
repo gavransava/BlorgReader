@@ -7,8 +7,10 @@ import savagavran.blorgreader.main.blogList.BlogItemAdapter;
 import savagavran.blorgreader.main.blogList.BlogsContract;
 import savagavran.blorgreader.main.blogList.presenter.BlogsPresenter;
 import savagavran.blorgreader.shared.RecyclerAdapterModel;
-import savagavran.blorgreader.shared.Repository;
+import savagavran.blorgreader.shared.RepositoryBlog;
+import savagavran.blorgreader.shared.RepositoryBlogList;
 import savagavran.blorgreader.shared.auth.AuthManager;
+import savagavran.blorgreader.utils.Blog;
 import savagavran.blorgreader.utils.BlogItem;
 
 @BlogsScope
@@ -42,12 +44,14 @@ public class BlogsModule {
     public BlogsContract.BlogsUserActions provideBlogsUserActions(
             AuthManager mAuthManager,
             RecyclerAdapterModel<BlogItem> recyclerAdapterModel,
-            Repository<BlogItem> blogItemRepository) {
+            RepositoryBlogList<BlogItem> blogListRepository,
+            RepositoryBlog<Blog> blogRepository) {
         return new BlogsPresenter(
                 mBlogsScreen,
                 recyclerAdapterModel,
                 mAuthManager,
-                blogItemRepository);
+                blogListRepository,
+                blogRepository);
     }
 
 }

@@ -6,7 +6,7 @@ import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
-import retrofit2.http.Query;
+import retrofit2.http.Path;
 import savagavran.blorgreader.utils.Blog;
 import savagavran.blorgreader.utils.BlogItem;
 
@@ -17,7 +17,7 @@ public interface ApiServiceEndpoints {
     Observable<List<BlogItem>> getAllBlogs(@Header("X-Authorize") String token);
 
     @Headers("Accept: application/json")
-    @GET("/blogs")
+    @GET("/blogs/{BLOG_ID}")
     Observable<Blog> getBlog(@Header("X-Authorize") String token,
-                             @Query(value = "id") String id);
+                             @Path("BLOG_ID") String id);
 }

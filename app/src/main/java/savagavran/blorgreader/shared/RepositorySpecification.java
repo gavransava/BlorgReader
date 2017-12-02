@@ -1,14 +1,14 @@
 package savagavran.blorgreader.shared;
 
-public abstract class RepositorySpecification<T> {
+public class RepositorySpecification {
 
-    private T id;
+    private String id;
 
-    public T getID() {
+    public String getID() {
         return id;
     }
 
-    public void setId(T id) {
+    public RepositorySpecification(String id) {
         this.id = id;
     }
 }

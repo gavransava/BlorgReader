@@ -5,11 +5,11 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import io.reactivex.Observable;
-import savagavran.blorgreader.shared.Repository;
+import savagavran.blorgreader.shared.RepositoryBlogList;
 import savagavran.blorgreader.shared.ServiceApi;
 import savagavran.blorgreader.utils.BlogItem;
 
-public class BlogsRepositoryImpl implements Repository<BlogItem> {
+public class BlogsRepositoryImpl implements RepositoryBlogList<BlogItem> {
 
     private ServiceApi mServiceApi;
 
