@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import savagavran.blorgreader.R;
@@ -50,17 +49,21 @@ public class BlogFragment extends Fragment {
         if (bundle != null) {
             htmlContent = bundle.getString(HTML_CONTENT, "");
         }
-        webView.loadData(htmlContent , "text/html", null);
+        webView.loadDataWithBaseURL(null, htmlContent,
+                "text/html", "UTF-8", null);
 
         return view;
     }
 
     private void setupWebView(WebView webView) {
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setSupportZoom(false);
+        webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+        webView.setInitialScale(1);
+        webView.getSettings().setSupportZoom(true);
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setDisplayZoomControls(false);
         webView.getSettings().setLoadWithOverviewMode(true);
-        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
+        webView.getSettings().setUseWideViewPort(true);
     }
 
     private void setupToolbar(Toolbar mActionBarToolbar) {
