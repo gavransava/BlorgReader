@@ -31,7 +31,7 @@ import savagavran.blorgreader.main.blogList.di.DaggerBlogsComponent;
 public class BlogsFragment extends Fragment implements BlogsContract.BlogsScreen {
 
     private RecyclerView mRecyclerView;
-    private Parcelable listState;
+    private Parcelable mListState;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private static final String LIST_STATE = "ListState";
@@ -58,7 +58,7 @@ public class BlogsFragment extends Fragment implements BlogsContract.BlogsScreen
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            listState = savedInstanceState.getParcelable(LIST_STATE);
+            mListState = savedInstanceState.getParcelable(LIST_STATE);
         }
     }
 
@@ -122,7 +122,11 @@ public class BlogsFragment extends Fragment implements BlogsContract.BlogsScreen
                 ContextCompat.getColor(getActivity(), R.color.colorPrimary),
                 ContextCompat.getColor(getActivity(), R.color.colorAccent),
                 ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-        mSwipeRefreshLayout.setOnRefreshListener(() -> mBlogsPresenter.loadBlogs());
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+                    mBlogsPresenter.loadBlogs();
+                    mListState = null;
+                }
+        );
     }
 
     @Override
@@ -142,8 +146,8 @@ public class BlogsFragment extends Fragment implements BlogsContract.BlogsScreen
             mSwipeRefreshLayout.setRefreshing(false);
         }
         mRecyclerView.setVisibility(View.VISIBLE);
-        if (listState != null) {
-            mRecyclerView.getLayoutManager().onRestoreInstanceState(listState);
+        if (mListState != null) {
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(mListState);
         }
         mRecyclerViewAdapter.notifyDataSetChanged();
     }
