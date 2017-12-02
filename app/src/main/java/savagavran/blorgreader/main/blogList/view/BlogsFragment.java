@@ -2,6 +2,7 @@ package savagavran.blorgreader.main.blogList.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -30,7 +31,10 @@ import savagavran.blorgreader.main.blogList.di.DaggerBlogsComponent;
 public class BlogsFragment extends Fragment implements BlogsContract.BlogsScreen {
 
     private RecyclerView mRecyclerView;
+    private Parcelable listState;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private static final String LIST_STATE = "ListState";
 
     @Inject
     BlogsContract.BlogsUserActions mBlogsPresenter;
@@ -53,6 +57,15 @@ public class BlogsFragment extends Fragment implements BlogsContract.BlogsScreen
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            listState = savedInstanceState.getParcelable(LIST_STATE);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(LIST_STATE, mRecyclerView.getLayoutManager().onSaveInstanceState());
     }
 
     @Nullable
@@ -125,10 +138,13 @@ public class BlogsFragment extends Fragment implements BlogsContract.BlogsScreen
 
     @Override
     public void showBlogs() {
-        if(mSwipeRefreshLayout.isRefreshing()){
+        if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
         mRecyclerView.setVisibility(View.VISIBLE);
+        if (listState != null) {
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(listState);
+        }
         mRecyclerViewAdapter.notifyDataSetChanged();
     }
 
