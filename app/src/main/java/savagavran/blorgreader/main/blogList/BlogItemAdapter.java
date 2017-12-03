@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import savagavran.blorgreader.ItemListener;
@@ -55,7 +54,6 @@ public class BlogItemAdapter extends RecyclerView.Adapter<BlogItemAdapter.BlogIt
     @Override
     public void setItems(List<BlogItem> itemList) {
         mItems = itemList;
-        Collections.reverse(mItems);
     }
 
     @Override

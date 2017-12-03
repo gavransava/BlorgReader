@@ -1,6 +1,7 @@
 package savagavran.blorgreader.shared;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -20,6 +21,7 @@ public class ServiceApiCacheImpl implements ServiceApiCache {
     }
 
     public void cacheBlogs(List<BlogItem> blogs) {
+        Collections.reverse(blogs);
         mCachedLogs.addAll(blogs);
     }
 }
