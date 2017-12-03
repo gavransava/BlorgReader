@@ -3,9 +3,8 @@ Browse and read articles from CreITive's blog.
 
 
 TODO: 
-1. Caching
-2. Support for landscape + bigger screens (master-detail)
-3. Tests
+1. Support for landscape + bigger screens (master-detail)
+2. Tests
 
 
 

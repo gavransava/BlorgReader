@@ -19,6 +19,7 @@ public class DataModule {
 
     private AuthManager mAuthManager;
     private ServiceApi mServiceApi;
+    private ServiceApiCache mServiceApiCache;
     private ConnectivityInterceptor mConnInterceptor;
 
     @AppScope
@@ -44,14 +45,25 @@ public class DataModule {
 
     @AppScope
     @Provides
-    public RepositoryBlogList<BlogItem> provideBlogsRepository(ServiceApi serviceApi) {
-        return new BlogsRepositoryImpl(serviceApi);
+    public ServiceApiCache provideServiceApiCache() {
+        if (mServiceApiCache == null) {
+            mServiceApiCache = new ServiceApiCacheImpl();
+        }
+        return mServiceApiCache;
+    }
+
+    @AppScope
+    @Provides
+    public RepositoryBlogList<BlogItem> provideBlogsRepository(ServiceApi serviceApi,
+                                                               ServiceApiCache serviceApiCache) {
+        return new BlogsRepositoryImpl(serviceApi, serviceApiCache);
     }
     @AppScope
     @Provides
     public RepositoryBlog<Blog> provideBlogRepository(ServiceApi serviceApi) {
         return new BlogRepositoryImpl(serviceApi);
     }
+
     @AppScope
     @Provides
     public ConnectivityInterceptor provideConnectivityInterceptor(Context context) {

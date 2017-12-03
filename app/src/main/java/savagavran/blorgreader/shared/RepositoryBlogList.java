@@ -3,9 +3,9 @@ package savagavran.blorgreader.shared;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public interface RepositoryBlogList<T> {
 
-    Observable<List<T>> getAllBlogs();
+    Single<List<T>> getAllBlogs();
 }

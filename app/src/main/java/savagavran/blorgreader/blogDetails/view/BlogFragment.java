@@ -57,12 +57,10 @@ public class BlogFragment extends Fragment {
 
     private void setupWebView(WebView webView) {
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-        webView.setInitialScale(1);
+
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
-        webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
     }
 

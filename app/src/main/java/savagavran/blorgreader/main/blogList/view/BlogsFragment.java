@@ -144,9 +144,7 @@ public class BlogsFragment extends Fragment implements BlogsContract.BlogsScreen
 
     @Override
     public void showBlogs() {
-        if (mSwipeRefreshLayout.isRefreshing()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
+        resetRefresh();
         mRecyclerView.setVisibility(View.VISIBLE);
         if (mListState != null) {
             mRecyclerView.getLayoutManager().onRestoreInstanceState(mListState);
@@ -156,6 +154,7 @@ public class BlogsFragment extends Fragment implements BlogsContract.BlogsScreen
 
     @Override
     public void showLoadingError(String message) {
+        resetRefresh();
         getActivity()
                 .findViewById(R.id.no_content_available_text)
                 .setVisibility(View.VISIBLE);
@@ -171,4 +170,9 @@ public class BlogsFragment extends Fragment implements BlogsContract.BlogsScreen
         startActivity(intent);
     }
 
+    private void resetRefresh() {
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+    }
 }
